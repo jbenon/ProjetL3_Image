@@ -55,10 +55,11 @@ public class Methode5 {
 
 		/*
 		 * Valeurs du filtre de Sobel horizontal utilisé ici
+		 * (Inverser le temps de coder la rotation d'image à 90°
 		 */
-		float[] filtreSobelY = {	1, 2, 1,
-									0, 0, 0,
-									-1, -2, -1};
+		float[] filtreSobelY = {	1, 0, -1,
+									2, 0, -2,
+									1, 0, -1};
 		
 		/*
 		 * Definition du noyau du filtre de Sobel 3*3 avec les valeurs
@@ -230,9 +231,11 @@ public class Methode5 {
 	 * @throws IOException si l'image est null
 	 */
 	public static void afficherImage(BufferedImage image) throws IOException {
-	      JFrame frame = new JFrame(); 
-
-	      frame.getContentPane().add(new JLabel(new ImageIcon(image))); 
+	      JFrame frame = new JFrame();
+		/*Redimensionne l'image le temps des tests pour verifier le bon fonctionnement du programme*/
+	      ImageIcon icon = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(800, 600, Image.SCALE_DEFAULT));
+	      
+	      frame.getContentPane().add(new JLabel(icon));
 	      frame.pack(); 
 	      frame.setVisible(true);
 	 }
