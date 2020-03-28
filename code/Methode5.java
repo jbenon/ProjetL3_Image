@@ -537,7 +537,7 @@ public class Methode5 {
 	
 	public static void main(String[] args) {
 		
-		BufferedImage imgBase = chargerImage("/src/bdd/escalier-droit1.jpg");	//---> CHARGER : DONE OK
+		BufferedImage imgBase = chargerImage("/src/bdd/escaliers_droits_2.jpg");	//---> CHARGER : DONE OK
 		// EGALISATION
 		BufferedImage etape2 = filtreSobelY(imgBase);				//---> SOBEL 3*3 : DONE OK
 		
