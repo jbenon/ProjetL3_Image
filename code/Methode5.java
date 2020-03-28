@@ -537,7 +537,7 @@ public class Methode5 {
 	
 	public static void main(String[] args) {
 		
-		BufferedImage imgBase = chargerImage("/home/roxane/Images/chat-tribal.jpg");	//---> CHARGER : DONE OK
+		BufferedImage imgBase = chargerImage("/src/bdd/escalier-droit1.jpg");	//---> CHARGER : DONE OK
 		// EGALISATION
 		BufferedImage etape2 = filtreSobelY(imgBase);				//---> SOBEL 3*3 : DONE OK
 		
@@ -546,7 +546,7 @@ public class Methode5 {
 		
 		BufferedImage etape4 = flouGaussien(etape3);				//---> GAUSSIEN (5*5 pour l'instant) : DONE OK
 		BufferedImage etape5 = filtreMedian(etape4);				//---> MEDIAN 3*3 : DONE OK
-		BufferedImage etape6 = fermeture(etape5);					//---> FERMETURE 7*7 : DONE midOK if binaire
+		BufferedImage etape6 = fermeture(etape5);					//---> FERMETURE 7*7 : DONE Ok
 		
 		
 		try {
