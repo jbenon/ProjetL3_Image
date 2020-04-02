@@ -53,10 +53,10 @@ public class Methode5 {
 	
 	public static void main(String[] args) {
 		
-		BufferedImage imgBase = Internet.rotateClockwise90(Internet.chargerImage("/home/roxane/Cours/L3-2019-2020/S6/Image/Projet/escaliers_colimacon_2.jpg"));	//---> CHARGER : DONE OK
+		BufferedImage imgBase = Internet.rotateClockwise90(Internet.chargerImage("/bdd/escaliers_droits_2.jpg"));	//---> CHARGER : DONE OK
 
 		imgBase = Filtres.filtreSobelY(imgBase);				//---> SOBEL 3*3 : DONE OK
-		imgBase = binairiser(imgBase,120);						// BINARISATION OTSU (en attendant, binarisation simple)
+		imgBase = binairiser(imgBase,170);					// BINARISATION OTSU (en attendant, binarisation simple)
 		imgBase = Filtres.flouGaussien(imgBase);				//---> GAUSSIEN (5*5 pour l'instant) : DONE OK		
 		imgBase = Filtres.filtreMedian(imgBase);				//---> MEDIAN 3*3 : DONE OK		
 		imgBase = Filtres.fermeture(imgBase);					//---> FERMETURE 7*7 : DONE midOK if binaire
