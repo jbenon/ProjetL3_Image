@@ -10,7 +10,7 @@ import code.Internet;
  * Codes des histogrammes utilisés
  * 
  * @author Roxane Cellier
- * @version 1.0
+ * @version 2.0
  *
  */
 public class Histogrammes {
@@ -24,11 +24,7 @@ public class Histogrammes {
 	 * @return les valeurs de l'histogramme
 	 */
 	public static int[] histogrammeGris(BufferedImage img) {
-		/*
-		 * Initialisation de l'image représentant l'histogramme
-		 */
-		BufferedImage hist = new BufferedImage(256, 256, BufferedImage.TYPE_BYTE_BINARY);
-		
+
 		int largeur = img.getWidth();
 		int longueur = img.getHeight();
 		
@@ -52,32 +48,6 @@ public class Histogrammes {
 				int p = img.getRGB(colonne, ligne) & 0xFF;
 				valeursHist[p] += 1;
 			}
-		}
-		
-		/*
-		 * Représentation de l'histogramme dans une image noire
-		 */
-		for(int colonne = 1 ; colonne < 255 ; colonne++) {
-			for (int x = 0; x < valeursHist[colonne]/500; x++) {
-	            hist.setRGB(colonne, 255-x, Color.WHITE.getRGB());
-	        }
-		}
-		
-		/*
-		 * Affichage des valeurs de l'histogramme
-		 */
-		for(int i = 0 ; i<valeursHist.length ; i++) {
-			System.out.println(i + ":" + valeursHist[i]);
-		}
-		
-		/*
-		 * Affichage de l'image représentant l'histogramme
-		 */
-		try {
-			Internet.afficherImage(hist);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		return valeursHist;
