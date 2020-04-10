@@ -131,6 +131,7 @@ public class Methode5 {
 	
 	public static void main(String[] args) {
 		
+		// Mettre le path complet de l'image à étudier /!\
 		BufferedImage imgBase = Internet.rotateClockwise90(Internet.chargerImage("/bdd/escaliers_droits_2.jpg"));	//---> CHARGER : DONE OK
 
 		imgBase = Filtres.filtreSobelY(imgBase);				//---> SOBEL 3*3 : DONE OK
@@ -139,8 +140,11 @@ public class Methode5 {
 		imgBase = Filtres.filtreMedian(imgBase);				//---> MEDIAN 3*3 : DONE OK		
 		imgBase = Filtres.fermeture(imgBase);					//---> FERMETURE 7*7 : DONE OK
 		
-		Histogrammes.histogrammeProjete(imgBase);
+		int[] histProj = Histogrammes.histogrammeProjete(imgBase);				//---> HISTOGRAMME PROJETÉ : DONE OK
+		int resultat = Histogrammes.compterMarches(histProj, imgBase);			//---> CALCUL NB MARCHES : DONE ?
 		
+		System.out.print(resultat);
+				
 		try {
 			Internet.afficherImage(imgBase);
 		} catch (IOException e) {
