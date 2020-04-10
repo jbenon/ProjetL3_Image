@@ -14,7 +14,7 @@ import code.Internet;
  * Traite une photo pour compter le nombre de marches d'un escalier
  * 
  * @author Roxane Cellier
- * @version 0.9
+ * @version 1.0
  *
  */
 public class Methode5 {
