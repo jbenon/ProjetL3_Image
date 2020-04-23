@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import projet.Internet;
+import code.Internet;
 
 /**
  * Codes des histogrammes utilisés et de leurs analyses
