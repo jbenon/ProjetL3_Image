@@ -132,7 +132,7 @@ public class Methode5 {
 	public static void main(String[] args) {
 		
 		// Mettre le path complet de l'image à étudier /!\
-		BufferedImage imgBase = Internet.rotateClockwise90(Internet.chargerImage("/home/roxane/eclipse-workspace/ImageProjet/bdd/escaliers_droits_1.jpg"));	//---> CHARGER : DONE OK
+		BufferedImage imgBase = Internet.rotateClockwise90(Internet.chargerImage("/bdd/escaliers_droits_1.jpg"));	//---> CHARGER : DONE OK
 
 		imgBase = Filtres.filtreSobelY(imgBase);				//---> SOBEL 3*3 : DONE OK
 		imgBase = binarisationOtsu(imgBase);					//---> BINARISATION OTSU : DONE OK
