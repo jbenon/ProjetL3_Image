@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import code.Internet;
+import projet.Internet;
 
 /**
  * Codes des histogrammes utilisés et de leurs analyses
@@ -110,7 +110,7 @@ public class Histogrammes {
 		 * Affichage des valeurs de l'histogramme
 		 */
 		for(int i = 0 ; i<valeursHist.length ; i++) {
-			System.out.println(i + ":" + valeursHist[i]);
+			System.out.println(valeursHist[i]);
 		}
 		
 		/*
@@ -122,6 +122,8 @@ public class Histogrammes {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		hist.flush();
 		
 		return valeursHist;
 	}
@@ -137,14 +139,14 @@ public class Histogrammes {
 	 * @author Juliette/Nicolas
 	 */
 	public static int compterMarches(int[] histo, BufferedImage img) {
-		// Pics Python
+		// Méthode pics du pseudo-code Python
 		int n = histo.length;
 		Boolean pic = false;
 		int lim = max(histo)/10;
-		int compt = 0;  // x1
+		int compt = 0;
 		
-		ArrayList<Double> sommets = new ArrayList<Double>(); // x2
-		ArrayList<Double> ind_sommets = new ArrayList<Double>(); // x3
+		ArrayList<Double> sommets = new ArrayList<Double>();
+		ArrayList<Double> ind_sommets = new ArrayList<Double>();
 		ArrayList<Double> temp = new ArrayList<Double>();
 		ArrayList<Double> ind_temp = new ArrayList<Double>();
 		
@@ -182,12 +184,12 @@ public class Histogrammes {
 			}
 		}
 		
-		// filtre Python
+		// Méthode filtre du pseudo-code Python
 		
 		int part = 2;
 		int nb_part = compt/part;
-		ArrayList<Double> reste = new ArrayList<Double>(); // y1
-		ArrayList<Double> ind_reste = new ArrayList<Double>(); // y2
+		ArrayList<Double> reste = new ArrayList<Double>();
+		ArrayList<Double> ind_reste = new ArrayList<Double>();
 		
 		for(int k=0 ; k<part-1 ; k++) {
 			List<Double> y = sommets.subList(k*nb_part, (k+1)*nb_part);
@@ -214,7 +216,7 @@ public class Histogrammes {
 			}
 		}
 		
-		// marches Python
+		// Méthode marches du pseudo-code Python
 		
 		ArrayList<Double> res = new ArrayList<Double>();
 		res.add(ind_reste.get(0));
@@ -228,11 +230,11 @@ public class Histogrammes {
 		double c = 0;
 		
 		for(int i=1 ; i<n ; i++) {
-			List<Double> y = dist.subList(0, i); // j'ai du supprimer le i+1 parce que ça ne fonctionnait pas sinon
+			List<Double> y = dist.subList(0, i);
 			c = conf(y);
 			m = moyenne(y);
 			
-			if( res.get(res.size()-1)-ind_reste.get(i)  >= (m-c)) {
+			if( (res.get(res.size()-1)-ind_reste.get(i))  >= (m-c)) {
 				res.add(ind_reste.get(i));
 			}
 			
@@ -285,6 +287,8 @@ public class Histogrammes {
 	 * 
 	 * @param tab le tableau d'entiers
 	 * @return la variance
+	 * 
+	 * @author Juliette/Nicolas
 	 */
 	private static double variance(List<Double> list) {
 		double moy = moyenne(list);
@@ -304,6 +308,8 @@ public class Histogrammes {
 	 * 
 	 * @param y Le tableau de valeurs
 	 * @return L'intervalle de confiance
+	 * 
+	 * @author Juliette/Nicolas
 	 */
 	private static double conf(List<Double> list) {
 		double var = variance(list);
