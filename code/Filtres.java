@@ -10,7 +10,7 @@ import java.util.Arrays;
  * Codes des filtres utilisés
  * 
  * @author Roxane Cellier
- * @version 1.0
+ * @version 2.0
  *
  */
 public class Filtres {
