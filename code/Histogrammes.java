@@ -55,7 +55,7 @@ public class Histogrammes {
 	}
 
 	/**
-	 * Crée l'histogramme projeté des lignes d'une image et l'affuche dans une image de même
+	 * Crée l'histogramme projeté des lignes d'une image et l'affiche dans une image de même
 	 * dimension que l'image de base
 	 * 
 	 * @param img le BufferedImage contenant l'image à étudier
@@ -89,7 +89,7 @@ public class Histogrammes {
 			for(int ligne = 0 ; ligne < longueur ; ligne++) {
 				/*
 				 * Si le pixel est allumé, la valeur
-				 * 
+				 * est incrémentée
 				 */
 				if (img.getRGB(colonne, ligne) == Color.white.getRGB()) {
 					valeursHist[ligne] += 1;
@@ -150,20 +150,36 @@ public class Histogrammes {
 		ArrayList<Double> temp = new ArrayList<Double>();
 		ArrayList<Double> ind_temp = new ArrayList<Double>();
 		
+		/*
+		* Parcours des valeurs de l'histogramme
+		*/
 		for(double i=0 ; i < n ; i++) {
 			
-			if (histo[(int) i] > lim) {
+			if (histo[(int) i] > lim) { 
 				
+				/*
+				* Si on passe au-dessus de la limite et qu'on n'était pas dans un pic,
+				* on incrémente le nombre de pics
+				*/				
 				if (!pic) {
 					compt += 1;
 				}
 				
+				/*
+				* Dans tous les cas, on indique qu'on se situe dans un pic
+				* et on stocke l'indice et la valeur de l'histogramme dans des listes temporaires
+				*/
 				pic = true;
 				temp.add((double) histo[(int) i]);
 				ind_temp.add(i);
 				
 			} else {
 				
+				/*
+				* Si on passe sous la limite est qu'on était dans un pic,
+				* on ajoute son max et l'indice de son max aux listes sommets et ind_sommets
+				* puis dans tous les cas on indique qu'on sort n'est pas (ou plus) dans un pic
+				*/
 				if (pic) {
 					Double m = temp.get(0);
 					int ind_max = 0;
@@ -176,7 +192,7 @@ public class Histogrammes {
 					}
 					
 					sommets.add(m);
-					ind_sommets.add(z - ind_temp.get(ind_max));
+					ind_sommets.add(z - ind_temp.get(ind_max)); // On veut la liste des sommets de haut en bas
 					temp = new ArrayList<Double>();
 					ind_temp = new ArrayList<Double>();
 				}
@@ -187,13 +203,19 @@ public class Histogrammes {
 		// Méthode filtre du pseudo-code Python
 		
 		int part = 2;
-		int nb_part = compt/part;
+		int nb_part = compt/part; // Nombre de sommets par partie (excepté pour la dernière partie)
 		ArrayList<Double> reste = new ArrayList<Double>();
 		ArrayList<Double> ind_reste = new ArrayList<Double>();
 		
+		/*
+		* Parcours des valeurs max des pics
+		*/
 		for(int k=0 ; k<part-1 ; k++) {
+			/*
+			* Parcours des sommets des k-1 premières parties
+			*/
 			List<Double> y = sommets.subList(k*nb_part, (k+1)*nb_part);
-			double c = conf(y);
+			double c = conf(y); // Calcul des paramètres du seuil de hauteur minimale
 			double m = moyenne(y);
 			
 			for(int i = k*nb_part ; i < (k+1)*nb_part ; i++) {
@@ -205,6 +227,10 @@ public class Histogrammes {
 			}
 		}
 		
+		
+		/*
+		* Parcours des sommets de la dernière partie
+		*/
 		List<Double> x = sommets.subList((part-1)*nb_part, sommets.size());
 		double conf = conf(x);
 		double moy = moyenne(x);
@@ -222,6 +248,10 @@ public class Histogrammes {
 		res.add(ind_reste.get(0));
 		n = ind_reste.size();
 		ArrayList<Double> dist = new ArrayList<Double>();
+		
+		/*
+		* Liste des espacements entre sommets consécutifs
+		*/
 		for(int i = 0 ; i< n-1 ; i++) {
 			dist.add(ind_reste.get(i) - ind_reste.get(i+1));
 		}
@@ -229,11 +259,18 @@ public class Histogrammes {
 		double m = 0;
 		double c = 0;
 		
+		/*
+		* Parcours des indices des sommets restants
+		*/
 		for(int i=1 ; i<n ; i++) {
 			List<Double> y = dist.subList(0, i);
 			c = conf(y);
 			m = moyenne(y);
 			
+			/*
+			* On compare l'espacement entre le sommet traité et le dernier sommet accepté dans la liste res
+			* avec un seuil construit à partir de la moyenne et de l'écart-type des espacements des sommets précédents
+			*/
 			if( (res.get(res.size()-1)-ind_reste.get(i))  >= (m-c)) {
 				res.add(ind_reste.get(i));
 			}
@@ -248,7 +285,7 @@ public class Histogrammes {
 	// METHODES PRIVÉES UTILISÉES
 	
 	/**
-	 * Renvois la valeur maximale d'un tableau d'entiers
+	 * Renvoie la valeur maximale d'un tableau d'entiers
 	 * 
 	 * @param tab le tableau d'entiers
 	 * @return la valeur maximale
@@ -265,7 +302,7 @@ public class Histogrammes {
 	}
 	
 	/**
-	 * Renvois la moyenne des valeurs d'un tableau d'entiers
+	 * Renvoie la moyenne des valeurs d'un tableau d'entiers
 	 * 
 	 * @param tab le tableau d'entiers
 	 * @return la valeur moyenne
@@ -283,7 +320,7 @@ public class Histogrammes {
 	}
 	
 	/**
-	 * Renvois la variance des valeurs d'un tableau d'entiers
+	 * Renvoie la variance des valeurs d'un tableau d'entiers
 	 * 
 	 * @param tab le tableau d'entiers
 	 * @return la variance
