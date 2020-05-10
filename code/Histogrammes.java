@@ -12,7 +12,7 @@ import code.Internet;
  * Codes des histogrammes utilisés et de leurs analyses
  * 
  * @author Roxane Cellier
- * @version 3.0
+ * @version 4.0
  *
  */
 public class Histogrammes {
@@ -134,11 +134,11 @@ public class Histogrammes {
 	 * Compte le nombre de marches en fonction de l'histogramme
 	 * 
 	 * @param histo Le tableau de l'histogramme projeté
-	 * @param img L'image de base
+	 * @param z La largeur de l'image de base
 	 * 
 	 * @author Juliette/Nicolas
 	 */
-	public static int compterMarches(int[] histo, BufferedImage img) {
+	public static int compterMarches(int[] histo, int z) {
 		// Méthode pics du pseudo-code Python
 		int n = histo.length;
 		Boolean pic = false;
@@ -176,7 +176,7 @@ public class Histogrammes {
 					}
 					
 					sommets.add(m);
-					ind_sommets.add(img.getHeight() - ind_temp.get(ind_max));
+					ind_sommets.add(z - ind_temp.get(ind_max));
 					temp = new ArrayList<Double>();
 					ind_temp = new ArrayList<Double>();
 				}
@@ -196,7 +196,7 @@ public class Histogrammes {
 			double c = conf(y);
 			double m = moyenne(y);
 			
-			for(int i = k*nb_part ; i < (k+1)*nb_part ; k++) {
+			for(int i = k*nb_part ; i < (k+1)*nb_part ; i++) {
 				if (sommets.get(i) > (m-c)) {
 					reste.add(sommets.get(i));
 					ind_reste.add(ind_sommets.get(i));
