@@ -131,12 +131,12 @@ public class Methode5 {
 	
 	public static void main(String[] args) {
 		
-		// Mettre le path complet de l'image à étudier /!\
+		// Mettre le path complet de l'image à étudier /!\ et ajuster la rotation si besoin
 		BufferedImage imgBase = Internet.rotateClockwise90(Internet.chargerImage("/bdd/escaliers_droits_1.jpg"));	//---> CHARGER : DONE OK
 
 		imgBase = Filtres.filtreSobelY(imgBase);				//---> SOBEL 3*3 : DONE OK
 		imgBase = binarisationOtsu(imgBase);					//---> BINARISATION OTSU : DONE OK
-		imgBase = Filtres.flouGaussien(imgBase);				//---> GAUSSIEN (5*5 pour l'instant) : DONE OK
+		imgBase = Filtres.flouGaussien(imgBase);				//---> GAUSSIEN 5*5 : DONE OK
 		imgBase = Filtres.filtreMedian(imgBase);				//---> MEDIAN 3*3 : DONE OK	
 		imgBase = Filtres.fermeture(imgBase);					//---> FERMETURE 7*7 : DONE OK
 		
@@ -147,13 +147,13 @@ public class Methode5 {
 			e.printStackTrace();
 		}
 		
+		int z = imgBase.getHeight();
 		int[] histProj = Histogrammes.histogrammeProjete(imgBase);				//---> HISTOGRAMME PROJETÉ : DONE OK
-		int resultat = Histogrammes.compterMarches(histProj, imgBase);			//---> CALCUL NB MARCHES : DONE ?
-		
 		imgBase.flush();
+		int resultat = Histogrammes.compterMarches(histProj, z);				//---> CALCUL NB MARCHES : DONE OK (A AFFINER)
 		
-		System.out.print("Nombre de marches : " + resultat);
-						
+		System.out.print("Nombre de marches de l'escalier : " + resultat);
+										
 	}
 	
 }
